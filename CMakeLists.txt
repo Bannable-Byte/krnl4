@@ -30,7 +30,8 @@ else ()
   set(CMAKE_VERBOSE_MAKEFILE 0)
 endif ()
 
-add_subdirectory (src)
+add_subdirectory (kernel)
+#add_subdirectory (servers)
 
 enable_testing ()
 

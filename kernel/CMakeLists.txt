@@ -33,8 +33,6 @@ set (APPLICATION_VERSION_STRING
    ${APPLICATION_VERSION_TYPE}"
 )
 
-#add_subdirectory (servers)
-
 set (project_BIN ${PROJECT_NAME})
 
 set (project_SOURCES

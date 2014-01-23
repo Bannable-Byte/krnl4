@@ -16,7 +16,13 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-int main(int argc, char **argv) {
-      return 0;
-}
+#ifndef _MACROS_H
+#define _MACROS_H
+
+#include <krnl4/types.h>
+
+/* Spin the cpu eternaly */
+#define spin_forever(x...) do {} while(true)
+
+#endif /* _MACROS_H */
 

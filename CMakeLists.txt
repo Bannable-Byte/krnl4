@@ -18,18 +18,55 @@
 
 cmake_minimum_required (VERSION 2.8)
 
+# Don't start build from the root directory
 if (CMAKE_BINARY_DIR STREQUAL ${CMAKE_SOURCE_DIR})
   message(FATAL_ERROR "type: git clean -df && mkdir build && cd build && cmake .. && make")
 endif()
 
+# Set CMake modules path
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
+# Set make files verbosity
 if (CMAKE_BUILD_TYPE MATCHES Debug)
   set(CMAKE_VERBOSE_MAKEFILE 1)
 else ()
   set(CMAKE_VERBOSE_MAKEFILE 0)
 endif ()
 
+message ("-- Architecture: " ${CMAKE_SYSTEM_PROCESSOR})
+
+# Set root arch and include dirs
+set (ARCH_DIR ${CMAKE_SOURCE_DIR}/arch)
+set (INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
+
+# Set asm arch and include dirs
+set (ARCH_ASM_DIR ${CMAKE_BINARY_DIR}/arch)
+set (INCLUDE_ASM_DIR ${CMAKE_BINARY_DIR}/include)
+
+# Create architecture dependant links
+if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64" OR 
+    ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86")
+  execute_process (COMMAND rm -rf ${CMAKE_BINARY_DIR}/include)
+  execute_process (COMMAND mkdir -p ${CMAKE_BINARY_DIR}/include)
+  execute_process (COMMAND ln -s ${ARCH_DIR}/x86 ${CMAKE_BINARY_DIR}/include/asm)
+  execute_process (COMMAND rm -rf ${CMAKE_BINARY_DIR}/arch)
+  execute_process (COMMAND mkdir -p ${CMAKE_BINARY_DIR}/arch)
+  execute_process (COMMAND ln -s ${ARCH_DIR}/x86 ${CMAKE_BINARY_DIR}/arch/asm)
+  
+  # Set architecture type in config.h
+  if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
+    option (__ARCH_X86_64__ "x86_64" ON)
+  else ()
+    option (__ARCH_X86__ "x86" ON)
+  endif ()
+else ()
+  message (FATAL_ERROR "Unsupported architecture")
+endif ()
+
+# Generate config header
+configure_file (${INCLUDE_DIR}/config.h.cmake ${INCLUDE_ASM_DIR}/config.h)
+
+add_subdirectory (init)
 add_subdirectory (kernel)
 #add_subdirectory (servers)
 

@@ -17,8 +17,6 @@
  */
 
 SECTIONS {
-  __krnl4_begin = .;
-
   .text : {
     *(.mbh)
     *(.text*)
@@ -26,10 +24,7 @@ SECTIONS {
     *(.data*)
     *(.bss)
     *(.sbss)
-    __krnl4_end_data = .;
   }
-  
-  __krnl4_end = .;
   
   /DISCARD/ : {
     *(.eh_frame*)

@@ -21,6 +21,10 @@
  * http://www.gnu.org/software/grub/manual/multiboot/multiboot.html
  */
 
+  .equ MULTIBOOT_MAGIC, 0x1BADB002
+  .equ MULTIBOOT_FLAGS, 0x00000000
+  .equ STACK_SIZE, 8000
+
   .text
   .global __krnl4_start
 
@@ -37,6 +41,7 @@ __krnl4_start:
   movl %ebx, %edi
   cli
   cld
+_start:
 
   /* Load temporary stack pointer */
   lea __krnl4_mini_stack, %esp
@@ -49,7 +54,7 @@ __krnl4_start:
   jmp 1b
   
   .align 16
-  .space 8192
+  .space STACK_SIZE
 __krnl4_mini_stack:
 
   .section .mbh
@@ -61,12 +66,8 @@ __krnl4_mini_stack:
   .align 16, 90
 
 __krnl4_mb_header:
-  .long 0x1BADB002                  /* magic */
-  .long 0x00000000                  /* flags */
-  .long - (0x00000000 - 0x1BADB002) /* checksum */
+  .long MULTIBOOT_MAGIC             /* magic */
+  .long MULTIBOOT_FLAGS             /* flags */
+  .long -(MULTIBOOT_MAGIC + MULTIBOOT_FLAGS)  /* checksum */
   .long __krnl4_mb_header           /* header_addr */
-  .long __krnl4_start               /* load_addr */
-  .long __krnl4_end_data            /* load_end_addr */
-  .long __krnl4_end                 /* bss_end_addr  */
-  .long __krnl4_start               /* entry_addr */
 

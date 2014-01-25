@@ -13,19 +13,16 @@ kpartx -a floppy.img
 sleep 1
  
 # Make an ext2 filesystem on the first partition.
-mkfs.ext2 /dev/mapper/loop0p1
+mkfs.ext2 -L krnl4_boot /dev/mapper/loop1p1
  
 # Make the mount-point
 mkdir -p tmp/p1
  
 # Mount the filesystem via loopback
-mount /dev/mapper/loop0p1 tmp/p1
- 
-# Copy in the files from the staging directory
-cp -r kernel/krnl4 tmp/p1
+mount /dev/mapper/loop1p1 tmp/p1
 
 # Create a device map for grub
-echo "(hd0) /dev/loop0" > tmp/device.map
+echo "(hd0) /dev/loop1" > tmp/device.map
 
 # Use grub2-install to actually install Grub. The options are:
 #   * No floppy polling.
@@ -37,10 +34,13 @@ grub2-install --no-floppy \
               --grub-mkdevicemap=tmp/device.map \
               --modules="biosdisk part_msdos ext2 configfile normal multiboot" \
               --root-directory=tmp/p1 \
-              /dev/loop0
+              /dev/loop1
  
 # Copy grub.cfg
-cp `dirname $0`/grub.cfg tmp/p1/
+cp `dirname $0`/grub.cfg tmp/p1/boot/grub2/
+
+# Copy in the files from the staging directory
+cp -r kernel/krnl4 tmp/p1/boot/
 
 # Unmount the loopback
 umount tmp/p1

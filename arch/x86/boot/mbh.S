@@ -23,7 +23,7 @@
 
   .equ MULTIBOOT_MAGIC, 0x1BADB002
   .equ MULTIBOOT_FLAGS, 0x00000000
-  .equ STACK_SIZE, 8000
+  .equ STACK_SIZE, 0x2000 /* 8K stack space */
 
   .text
   .global __krnl4_start

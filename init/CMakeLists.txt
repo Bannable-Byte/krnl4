@@ -45,7 +45,7 @@ set (CMAKE_EXE_LINKER_FLAGS
 )
 
 # Set C compilation flags
-set (CMAKE_C_FLAGS "-ffreestanding -fno-builtin -nostdinc -nostdlib -std=c99")
+set (CMAKE_C_FLAGS "-Wall -pedantic -Werror -ffreestanding -fno-builtin -nostdinc -nostdlib -std=c99")
 
 # Create the library
 add_library (${project_BIN} ${project_SOURCES})

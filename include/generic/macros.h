@@ -22,7 +22,7 @@
 #include <krnl4/types.h>
 
 /* Spin the cpu eternaly */
-#define spin_forever(x...) do {} while(true)
+#define spin_forever(cpu) do {} while(true)
 
 #endif /* _MACROS_H */
 

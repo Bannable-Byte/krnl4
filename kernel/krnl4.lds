@@ -18,22 +18,21 @@
 
 SECTIONS {
 
-  . = 0x100000;
+    . = 0x100000;
 
-  .text : {
-    *(.mbh)
-    *(.text*)
-    *(.rodata*)
-    *(.data*)
-    *(.bss)
-    *(.sbss)
-  }
+    .text : {
+        *(.mbh)
+        *(.text*)
+        *(.rodata*)
+        *(.data*)
+        *(.bss)
+        *(.sbss)
+    }
   
-  /DISCARD/ : {
-    *(.eh_frame*)
-    *(.note*)
-    *(.comment*)
-  }
+    /DISCARD/ : {
+        *(.eh_frame*)
+        *(.note*)
+        *(.comment*)
+    }
 }
-
 

@@ -20,6 +20,6 @@
 
 void __krnl4_loader() __attribute__((noreturn)); 
 void __krnl4_loader() {
-  /* Never fall through */
-  spin_forever();
+    /* Never fall through */
+    spin_forever();
 }

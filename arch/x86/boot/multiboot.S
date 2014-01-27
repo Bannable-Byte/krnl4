@@ -35,8 +35,8 @@ __krnl4_start:
      * EAX - 0x2BADB002 if loaded by a multiboot loader
      * EBX - multiboot info structure pointer if loaded by a multiboot loader
      */
-    movl %eax, __mbi_flag
-    movl %ebx, __mbi_ptr
+    movl %eax, __multiboot_magic
+    movl %ebx, __multiboot_ptr
     movl %eax, %esi
     movl %ebx, %edi
     cli
@@ -57,7 +57,7 @@ _start:
     .space STACK_SIZE
 __krnl4_mini_stack:
 
-    .section .mbh
+    .section .multiboot
   
     /* Jump to the multiboot handler */
     jmp __krnl4_start

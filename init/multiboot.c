@@ -16,16 +16,17 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Complete multiboot specification can be found here:
- * http://www.gnu.org/software/grub/manual/multiboot/multiboot.html
- */
-
-#ifndef _MBI_H
-#define _MBI_H
+#include "multiboot.h"
 
 #include <krnl4/types.h>
 
+word_t __multiboot_magic;
+word_t __multiboot_ptr;
 
-#endif /* _MBI_H */
+struct multiboot_info *multiboot_prepare() {
+    if (__multiboot_magic == MULTIBOOT_BOOTLOADER_MAGIC)
+    	return (struct multiboot_info*)__multiboot_ptr;
+
+    return nullptr;
+}
 

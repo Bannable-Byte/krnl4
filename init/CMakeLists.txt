@@ -28,11 +28,11 @@ if (NOT CMAKE_ASM_COMPILER_WORKS)
 endif ()
 
 set (project_SOURCES
-  ${ARCH_ASM_DIR}/asm/boot/mbh.S
+  ${ARCH_ASM_DIR}/asm/boot/multiboot.S
 )
 
 set (project_SOURCES ${project_SOURCES}
-  mbi.c
+  multiboot.c
 ) 
 
 # Append root include and build/include directories

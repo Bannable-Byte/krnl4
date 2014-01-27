@@ -21,7 +21,7 @@ SECTIONS {
     . = 0x100000;
 
     .text : {
-        *(.mbh)
+        *(.multiboot)
         *(.text*)
         *(.rodata*)
         *(.data*)

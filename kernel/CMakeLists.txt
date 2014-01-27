@@ -60,7 +60,7 @@ set (CMAKE_EXE_LINKER_FLAGS
 )
 
 # Set kernel C compilation flags
-set (CMAKE_C_FLAGS "-Wall -pedantic -Werror -ffreestanding -fno-builtin -nostdinc -nostdlib -std=c99")
+set (CMAKE_C_FLAGS "-Wall -pedantic -ffreestanding -fno-builtin -nostdinc -nostdlib -std=c99")
 
 # Kernel ELF target
 add_executable (${project_BIN} ${project_SOURCES})

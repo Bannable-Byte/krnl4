@@ -21,16 +21,18 @@ cmake_minimum_required (VERSION 2.8)
 # Don't start build from the root directory
 if (CMAKE_BINARY_DIR STREQUAL ${CMAKE_SOURCE_DIR})
   message(FATAL_ERROR "type: git clean -df && mkdir build && cd build && cmake .. && make")
-endif()
+endif ()
 
 # Set CMake modules path
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 # Set make files verbosity
 if (CMAKE_BUILD_TYPE MATCHES Debug)
-  set(CMAKE_VERBOSE_MAKEFILE 1)
+  set (CMAKE_VERBOSE_MAKEFILE 1)
+  option (__DEBUG__ "Debug build" ON)
 else ()
-  set(CMAKE_VERBOSE_MAKEFILE 0)
+  set (CMAKE_VERBOSE_MAKEFILE 0)
+  option (__DEBUG__ "Debug build" OFF)
 endif ()
 
 message ("-- Architecture: " ${CMAKE_SYSTEM_PROCESSOR})

@@ -21,8 +21,40 @@
 
 #include <krnl4/types.h>
 
-/* Spin the cpu eternaly */
+/*
+ * Evaluates the offset in bytes of a member within a structure 
+ * @structure:  Structure name
+ * @member:     Member name within the structure
+ */
+#define offsetof(stucture, member) __builtin_offsetof(structure, member)
+
+/*
+ * Casts a member of a structure out to the containing structure
+ * @ptr:    the pointer to the member
+ * @type:   the type of the container struct this is embedded in
+ * @member: the name of the member within the struct
+ */
+#define container_of(ptr, type, member) \
+    ({ \
+        const __typeof__(((type *)0)->member) *__mptr = (ptr); \
+        (type *)((char *)__mptr - offsetof(type, member)); \
+    })
+
+/* 
+ * Spins the cpu eternaly 
+ * @cpu:    CPU index
+ */
 #define spin_forever(cpu) do {} while(true)
+
+/* Converts macro argument to string 
+ * @x:  x -> "x"
+ */
+#define STRINGIFY(x) #x
+
+/* Expands macro argument value to string 
+ * @x:  x -> x() -> "result"
+ */
+#define STRINGIFY_EXPAND(x) STRINGIFY(x)
 
 #endif /* __INCLUDE__GENERIC__MACROS_H_ */
 

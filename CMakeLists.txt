@@ -43,6 +43,9 @@ set (INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 set (ARCH_ASM_DIR ${CMAKE_BINARY_DIR}/arch)
 set (INCLUDE_ASM_DIR ${CMAKE_BINARY_DIR}/include)
 
+# Set lib include directory
+set (INCLUDE_LIB_DIR ${CMAKE_SOURCE_DIR}/lib)
+
 # Create architecture dependant links
 if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64" OR 
     ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86")
@@ -66,6 +69,7 @@ endif ()
 # Generate config header
 configure_file (${INCLUDE_DIR}/config.h.cmake ${INCLUDE_ASM_DIR}/config.h)
 
+add_subdirectory (lib)
 add_subdirectory (init)
 add_subdirectory (kernel)
 #add_subdirectory (servers)

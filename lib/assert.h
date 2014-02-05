@@ -19,6 +19,8 @@
 #ifndef __LIB__ASSERT_H_
 #define __LIB__ASSERT_H_
 
+#include <config.h>
+
 #if defined(__DEBUG__)
 
 #include <generic/macros.h>

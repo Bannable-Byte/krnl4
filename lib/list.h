@@ -20,7 +20,7 @@
 #define __LIB__LIST_H_
 
 #include <assert.h>
-#include <generic/macros.h>
+#include <stddef.h>
 #include <generic/poison.h>
 #include <krnl4/types.h>
 

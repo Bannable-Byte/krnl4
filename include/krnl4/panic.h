@@ -20,7 +20,7 @@
 #define __INCLUDE_KRNL4__PANIC_H_ 
 
 /*
- * Causes kernel to panic and dumps registers and stacktrace to the console.
+ * Causes kernel to panic and to dump registers and stacktrace to the console.
  * @msg:    Message to be included in the dump.
  */
 void panic(char *msg);

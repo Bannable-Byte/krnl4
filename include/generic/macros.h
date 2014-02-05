@@ -19,14 +19,8 @@
 #ifndef __INCLUDE__GENERIC__MACROS_H_
 #define __INCLUDE__GENERIC__MACROS_H_
 
+#include <stddef.h>
 #include <krnl4/types.h>
-
-/*
- * Evaluates the offset in bytes of a member within a structure 
- * @structure:  Structure name
- * @member:     Member name within the structure
- */
-#define offsetof(stucture, member) __builtin_offsetof(structure, member)
 
 /*
  * Casts a member of a structure out to the containing structure

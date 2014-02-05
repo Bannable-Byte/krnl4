@@ -16,13 +16,13 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _MACROS_H
-#define _MACROS_H
+#ifndef __INCLUDE__GENERIC__MACROS_H_
+#define __INCLUDE__GENERIC__MACROS_H_
 
 #include <krnl4/types.h>
 
 /* Spin the cpu eternaly */
 #define spin_forever(cpu) do {} while(true)
 
-#endif /* _MACROS_H */
+#endif /* __INCLUDE__GENERIC__MACROS_H_ */
 

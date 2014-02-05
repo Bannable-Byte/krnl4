@@ -21,8 +21,8 @@
  * http://www.gnu.org/software/grub/manual/multiboot/multiboot.html
  */
 
-#ifndef _MULTIBOOT_H
-#define _MULTIBOOT_H
+#ifndef __INIT__MULTIBOOT_H_
+#define __INIT__MULTIBOOT_H_
 
 #include <krnl4/types.h>
 
@@ -149,5 +149,5 @@ struct multiboot_info {
 /* Returns the pointer to the multiboot information structure */
 struct multiboot_info* multiboot_prepare();
 
-#endif /* _MULTIBOOT_H */
+#endif /* __INIT__MULTIBOOT_H_ */
 

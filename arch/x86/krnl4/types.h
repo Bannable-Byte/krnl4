@@ -16,8 +16,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _X86_TYPES_H
-#define _X86_TYPES_H
+#ifndef __ARCH_X86_KRNL4__TYPES_H_
+#define __ARCH_X86_KRNL4__TYPES_H_
 
 #include <config.h>
 
@@ -73,5 +73,5 @@ typedef word_t addr_word_t;
 /* Physical address type */
 typedef void* paddr_t;
 
-#endif /* _X86_TYPES_H */
+#endif /* __ARCH_X86_KRNL4__TYPES_H_ */
 

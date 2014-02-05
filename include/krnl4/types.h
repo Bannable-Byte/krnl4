@@ -16,8 +16,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _TYPES_H
-#define _TYPES_H
+#ifndef __INCLUDE_KRNL4__TYPES_H_
+#define __INCLUDE_KRNL4__TYPES_H_
 
 #include <asm/krnl4/types.h>
 
@@ -36,5 +36,5 @@ typedef _Bool bool;
 /* Signal that all the definitions are present */
 #define __nullptr_is_defined 1
 
-#endif /* _TYPES_H */
+#endif /* __INCLUDE_KRNL4__TYPES_H_ */
 

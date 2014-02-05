@@ -50,7 +50,8 @@ struct list_head {
 static inline void list_add(struct list_head *new, struct list_head *head) {
     assert(new != nullptr);
     assert(head != nullptr);
-    if (head == nullptr || new == nullptr)
+    assert(head->next != nullptr);
+    if (head == nullptr || head->next == nullptr || new == nullptr)
         return;
 
     head->next->prev = new;
@@ -65,7 +66,9 @@ static inline void list_add(struct list_head *new, struct list_head *head) {
  */
 static inline void list_del(struct list_head *head) {
     assert(head != nullptr);
-    if (head == nullptr)
+    assert(head->next != nullptr);
+    assert(head->prev != nullptr);
+    if (head == nullptr || head->next == nullptr || head->prev == nullptr)
         return;
 
     head->next->prev = head->prev;

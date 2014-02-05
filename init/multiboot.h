@@ -68,6 +68,9 @@
 /* Multiboot information structure video information is valid */
 #define MBI_FLAG_VBE 0x00000800
 
+/* Memory segment is available */
+#define MBI_MMAP_AVAIL 0x00000001
+
 /* A multiboot header */
 struct multiboot_header {
     uint32_t magic;

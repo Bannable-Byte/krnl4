@@ -31,7 +31,7 @@ struct ldtr {
 
 
 /*
- * Initializes a local descriptor table register structure
+ * Initializes the local descriptor table register structure
  * @selector:   Local descriptor table selector
  * @ldtr:       Pointer to the local descriptor table register structure
  */

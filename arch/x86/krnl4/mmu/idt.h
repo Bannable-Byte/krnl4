@@ -32,7 +32,7 @@ struct idtr {
 
 
 /*
- * Initializes an interrupts descriptor table register structure
+ * Initializes the interrupts descriptor table register structure
  * @addr:   Linear addres of the table
  * @size:   The size of the table subtracted by 1
  * @idtr:   Pointer to the interrupts descriptor table register structure

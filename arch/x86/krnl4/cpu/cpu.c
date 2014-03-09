@@ -17,16 +17,10 @@
  */
 
 #include <assert.h>
+#include <asm/krnl4/mmu/gdt.h>
 #include <krnl4/types.h>
+
 #include "cpu.h"
-
-static int gdt_init(struct segdesc *gdt) {
-    return ECPU;
-}
-
-static int idt_init(struct segdesc *idt) {
-    return ECPU;
-}
 
 int cpu_init(struct cpu *cpu) {
     assert(cpu != nullptr);
@@ -34,10 +28,7 @@ int cpu_init(struct cpu *cpu) {
         return ECPU;
 
     int err = ENO;
-    if ((err = gdt_init(cpu->gdt)) != ENO)
-        return err;
-
-    if ((err = idt_init(cpu->idt)) != ENO)
+    if ((err = gdt_init(&cpu->gdt)) != ENO)
         return err;
 
     return ENO;

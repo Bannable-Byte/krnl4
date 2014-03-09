@@ -50,8 +50,10 @@ set (multiboot_SOURCES
 if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64" OR 
     ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86")
     set (arch_SOURCES
-        ${ARCH_ASM_DIR}/asm/krnl4/cpu/cpu.c
-        ${ARCH_ASM_DIR}/asm/krnl4/mmu/segdesc.c
+      ${ARCH_ASM_DIR}/asm/krnl4/cpu/cpu.c
+      ${ARCH_ASM_DIR}/asm/krnl4/mmu/gdt.c
+      ${ARCH_ASM_DIR}/asm/krnl4/mmu/segdesc.c
+      ${ARCH_ASM_DIR}/asm/krnl4/mmu/tssdesc.c
     )
 else ()
   message (FATAL_ERROR "Unsupported architecture")
@@ -59,15 +61,15 @@ endif ()
 
 # Miscelaneous source files
 set (misc_SOURCES
-    misc/panic.c
+  misc/panic.c
 )
 
 # Add source files
 set (project_SOURCES 
-    ${multiboot_SOURCES}    # Needs to be first for linker
-    krnl4.c
-    ${arch_SOURCES}
-    ${misc_SOURCES}
+  ${multiboot_SOURCES}    # Needs to be first for linker
+  krnl4.c
+  ${arch_SOURCES}
+  ${misc_SOURCES}
 )
 
 # Append root include and build/include directories

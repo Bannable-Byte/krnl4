@@ -19,9 +19,9 @@
 #include "segdesc.h"
 
 
-static inline void segdesc_init(word_t base, word_t limit,
-    enum segdesc_ring dpl, enum segdesc_type type, enum segdesc_mode mode, 
-    enum segdesc_msr msr, struct segdesc *desc) {
+void segdesc_init(word_t base, word_t limit, enum segdesc_ring dpl, 
+    enum segdesc_type type, enum segdesc_mode mode, enum segdesc_msr msr, 
+    struct segdesc *desc) {
     assert(desc != nullptr);
     if (desc == nullptr)
         return;

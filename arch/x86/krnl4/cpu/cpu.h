@@ -21,40 +21,34 @@
 
 #include <assert.h>
 #include <asm/krnl4/mmu/gdt.h>
-#include <asm/krnl4/mmu/idt.h>
+#include <asm/krnl4/mmu/gdtr.h>
+#include <asm/krnl4/mmu/idtr.h>
 #include <asm/krnl4/mmu/segdesc.h>
+#include <asm/krnl4/mmu/tssdesc.h>
 #include <krnl4/types.h>
 
 /* CPU error */
 #define ECPU    -1
 
-/* GDT size */
-#define CPU_GDT_LENGTH  6
-
-/* IDT size */
-#define CPU_IDT_LENGTH  6
-
 /*
  * Architecture dependant CPU structure
  */
 struct cpu {
-    struct segdesc gdt[CPU_GDT_LENGTH];
-    struct segdesc idt[CPU_IDT_LENGTH];
+    struct gdt gdt;
     struct gdtr gdtr;
-    struct idtr  idtr;
 };
 
 /*
  * Initializes CPU structure
- * @cpu         A CPU structure
- * @returns     Negative value on error
+ * @cpu         CPU structure
+ * @returns     Error code 
  */
 int cpu_init(struct cpu *cpu); 
 
 /*
- * Starts CPU
- * @cpu         A CPU structure
- * @returns     Negative value on error
+ * Bootstraps CPU
+ * @cpu         CPU structure
+ * @returns     Error code
  */
 int cpu_bootstrap(struct cpu *cpu);
 

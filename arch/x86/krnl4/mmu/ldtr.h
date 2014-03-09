@@ -16,8 +16,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __ARCH_X86_KRNL4_MMU__LDT_H_
-#define __ARCH_X86_KRNL4_MMU__LDT_H_
+#ifndef __ARCH_X86_KRNL4_MMU__LDTR_H_
+#define __ARCH_X86_KRNL4_MMU__LDTR_H_
 
 #include <assert.h>
 #include <krnl4/types.h>
@@ -67,5 +67,5 @@ static inline void ldtr_store(struct ldtr *ldtr) {
     __asm__ __volatile__("sldt %0\n" : "=m"(*ldtr) : /* no input */);
 }
 
-#endif /* __ARCH_X86_KRNL4_MMU_LDT_H_ */
+#endif /* __ARCH_X86_KRNL4_MMU_LDTR_H_ */
 

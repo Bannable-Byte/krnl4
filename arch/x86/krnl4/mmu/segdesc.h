@@ -30,7 +30,6 @@ enum segdesc_type {
     SEGDESC_TYPE_INVALID = 0x0,
     SEGDESC_TYPE_CODE    = 0xb,
     SEGDESC_TYPE_DATA    = 0x3,
-    SEGDESC_TYPE_TSS     = 0x9
 };
 
 /*
@@ -40,7 +39,7 @@ enum segdesc_ring {
     SEGDESC_RING_0 = 0,
     SEGDESC_RING_1 = 1,
     SEGDESC_RING_2 = 2,
-    SEGDES_RING_3 = 3,
+    SEGDESC_RING_3 = 3,
 };
 
 /*
@@ -95,7 +94,7 @@ struct segdesc {
  * @msr:    MSR register on x86_64 for FS an GS
  * @desc:   Pointer to the segment descriptor structure
  */
-static inline void segdesc_init(word_t base, word_t limit, enum segdesc_ring dpl,
+void segdesc_init(word_t base, word_t limit, enum segdesc_ring dpl, 
      enum segdesc_type type, enum segdesc_mode mode, enum segdesc_msr msr, 
      struct segdesc *desc);
 

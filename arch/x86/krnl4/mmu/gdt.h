@@ -16,59 +16,67 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __ARCH_X86_KRNL4_MMU__GDT_H_
-#define __ARCH_X86_KRNL4_MMU__GDT_H_
+#ifndef __ARCH_X86_KRNL4_CPU__GDT_H_
+#define __ARCH_X86_KRNL4_CPU__GDT_H_
 
 #include <assert.h>
+#include <asm/krnl4/mmu/segdesc.h>
+#include <asm/krnl4/mmu/tssdesc.h>
 #include <krnl4/types.h>
 
-/*
- * Global descriptor table register
- */
-struct gdtr {
-    uint16_t size;
-    word_t addr;
+/* GDT initialization error */
+#define EGDT    -1
+
+/* GDT segment bases */
+#define GDT_NULL_BASE       0x0
+#define GDT_KRNL_CS_BASE    0x0
+#define GDT_KRNL_DS_BASE    0x0
+#define GDT_USR_CS_BASE     0x0
+#define GDT_USR_DS_BASE     0x0
+#define GDT_TSS_BASE        0x0
+
+/* GDT segment limits */
+#if defined(__ARCH_X86__)
+
+#define GDT_NULL_LIMIT      0x0
+#define GDT_KRNL_CS_LIMIT   0xffffffffUL
+#define GDT_KRNL_DS_LIMIT   0xffffffffUL
+#define GDT_USR_CS_LIMIT    0xffffffffUL
+#define GDT_USR_DS_LIMIT    0xffffffffUL
+#define GDT_TSS_LIMIT       0xffffffffUL
+
+#elif defined(__ARCH_X86_64__)
+
+#define GDT_NULL_LIMIT      0x0
+#define GDT_KRNL_CS_LIMIT   0xffffffffffffffffUL
+#define GDT_KRNL_DS_LIMIT   0xffffffffffffffffUL
+#define GDT_USR_CS_LIMIT    0xffffffffffffffffUL
+#define GDT_USR_DS_LIMIT    0xffffffffffffffffUL
+#define GDT_TSS_LIMIT       0xffffffffffffffffUL
+
+#else
+#error Unknown architecture
+#endif
+
+struct gdt {
+    struct segdesc null;
+    struct segdesc krnl_cs;
+    struct segdesc krnl_ds;
+    struct segdesc usr_cs;
+#if defined(__ARCH_X86_64__)
+    /* 32-bit code compatibility */
+    struct segdesc usr_cs_comp;
+#endif
+    struct segdesc usr_ds;
+    struct tssdesc tss;
 } __attribute__((packed));
 
-
 /*
- * Initializes the global descriptor table register structure
- * @addr:   Linear address of the table
- * @size:   Size of the table subtracted by 1
- * @gdtr:   Pointer to a gdtr structure to be initialized
+ * Initializes Global descriptor table structure
+ * @gdt     Global descriptor table structure
+ * @return  Error code
  */
-static inline void gdtr_init(word_t addr, uint16_t size, struct gdtr *gdtr) {
-    assert(gdtr != nullptr);
-    if (gdtr == nullptr)
-        return;
+int gdt_init(struct gdt *gdt);
 
-    gdtr->size = size;
-    gdtr->addr = addr;
-}
-
-/*
- * Loads the global descriptor table from the structure into the register
- * @gdtr:   Pointer to the global descriptor table register structure
- */
-static inline void gdtr_load(const struct gdtr *gdtr) {
-    assert(gdtr != nullptr);
-    if (gdtr == nullptr)
-        return;
-
-    __asm__ __volatile__("lgdt %0\n" : /* no output */ : "m"(*gdtr)); 
-}
-
-/*
- * Stores the global descriptor table register value to the structure
- * @gdtr:   Pointer to the global descriptor table register structure
- */
-static inline void gdtr_store(struct gdtr *gdtr) {
-    assert(gdtr != nullptr);
-    if (gdtr == nullptr)
-        return;
-
-    __asm__ __volatile__("sgdt %0\n" : "=m"(*gdtr) : /* no input */);
-}
-
-#endif /* __ARCH_X86_KRNL4_MMU__GDT_H_ */
+#endif /* __ARCH_X86_KRNL4_CPU__GDT_H_ */
 

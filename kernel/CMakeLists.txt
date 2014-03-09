@@ -42,9 +42,20 @@ if (NOT CMAKE_ASM_COMPILER_WORKS)
 endif ()
 
 # multiboot.S needs to be the first during the linkage
-set (project_SOURCES
+set (multiboot_SOURCES
   ${ARCH_ASM_DIR}/asm/boot/multiboot.S
 )
+
+# Architecture dependant sources
+if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64" OR 
+    ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86")
+    set (arch_SOURCES
+        ${ARCH_ASM_DIR}/asm/krnl4/cpu/cpu.c
+        ${ARCH_ASM_DIR}/asm/krnl4/mmu/segdesc.c
+    )
+else ()
+  message (FATAL_ERROR "Unsupported architecture")
+endif ()
 
 # Miscelaneous source files
 set (misc_SOURCES
@@ -52,8 +63,10 @@ set (misc_SOURCES
 )
 
 # Add source files
-set (project_SOURCES ${project_SOURCES}
+set (project_SOURCES 
+    ${multiboot_SOURCES}    # Needs to be first for linker
     krnl4.c
+    ${arch_SOURCES}
     ${misc_SOURCES}
 )
 

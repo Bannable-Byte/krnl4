@@ -21,6 +21,9 @@
 
 #include <config.h>
 
+/* No error */
+#define ENO 0
+
 #if defined(__ARCH_X86__)
 
 #define SIZE_T unsigned int

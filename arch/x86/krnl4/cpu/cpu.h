@@ -41,6 +41,7 @@
  * \brief Architecture dependant cpu structure
  */
 struct cpu {
+    bool boot;
     struct gdt gdt;
     struct gdtr gdtr;
 };
@@ -60,6 +61,16 @@ int cpu_init(struct cpu *cpu);
  * \return The error code
  */
 int cpu_bootstrap(struct cpu *cpu);
+
+/*!
+ * \brief Is boot cpu?
+ *
+ * \param cpu The cpu structure
+ */
+static inline bool cpu_is_boot(struct cpu *cpu) {
+    assert(cpu != nullptr);
+    return cpu->boot;
+}
 
 #endif /* __ARCH_X86_KRNL4_CPU__CPU_H */
 

@@ -16,31 +16,15 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <assert.h>
-#include <asm/krnl4/cpu/msr.h>
-#include <asm/krnl4/mmu/gdt.h>
-#include <asm/krnl4/mmu/gdtr.h>
-#include <krnl4/types.h>
+/*!
+ * \file cpu.h
+ * \brief Generic kernel cpu support
+ */
 
-#include "cpu.h"
+#ifndef __INCLUDE_KRNL4_CPU__CPU_H_
+#define __INCLUDE_KRNL4_CPU__CPU_H_ 
 
-int cpu_init(struct cpu *cpu) {
-    assert(cpu != nullptr);
-    if (cpu == nullptr)
-        return ECPU;
+#include <asm/krnl4/cpu/cpu.h>
 
-    /* Is this a boot or an application cpu? */
-    cpu->boot = read_msr(IA32_APIC_BASE) & IA32_APIC_BASE_BSP;
-
-    int err;
-    if ((err = gdt_init(&cpu->gdt)) != ENO)
-        return err;
-
-    gdtr_init((word_t)&cpu->gdt, sizeof(cpu->gdt) - 1, &cpu->gdtr);
-    return ENO;
-}
-
-int cpu_bootstrap(struct cpu *cpu) {
-    return ECPU;
-}
+#endif /*__INCLUDE_KRNL4_CPU__CPU_H_ */
 

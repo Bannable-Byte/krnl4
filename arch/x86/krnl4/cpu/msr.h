@@ -18,7 +18,7 @@
 
 /*!
  * \file msr.h
- * \brief Model specific register for the Intel x86 architecture
+ * \brief Model specific registers for the Intel x86 architecture
  */
 
 #ifndef __ARCH_X86_KRNL4_CPU__MSR_H_
@@ -27,14 +27,23 @@
 #include <krnl4/types.h>
 
 /*!
+ * \brief APIC Base
+ */
+#define IA32_APIC_BASE              0x0000001b
+#define IA32_APIC_BASE_BSP          0x0000000000000080 /*!< \brief BSP flag (R/W) */
+#define IA32_APIC_BASE_2XAPIC       0x0000000000000200 /*!< \brief Enable x2APIC mode */
+#define IA32_APIC_BASE_APICGE       0x0000000000000400 /*!< \brief APIC Global Enable (R/W) */
+#define IA32_APIC_BASE_APICBASE     0x7ff8000000000000 /*!< \brief APIC Base (R/W) */
+
+/*!
  * \brief Map of base address of FS (r/w) 
  */
-#define IA32_FS_BASE    0xc0000100
+#define IA32_FS_BASE                0xc0000100
 
 /*!
  * \brief Map of base address of GS (r/w) 
  */
-#define IA32_GS_BASE    0xc0000101
+#define IA32_GS_BASE                0xc0000101
 
 
 /*!

@@ -16,6 +16,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*!
+ * \file segdesc.h
+ * \brief Segment descriptors for the Intel x86 architectire
+ */ 
+
 #ifndef __ARCH_X86_KRNL4_MMU__SEGDESC_H_
 #define __ARCH_X86_KRNL4_MMU__SEGDESC_H_
 
@@ -23,55 +28,54 @@
 #include <asm/krnl4/cpu/msr.h>
 #include <krnl4/types.h>
 
-/*
- * Segment descriptor types
+/*!
+ * \brief Segment descriptor types
  */
-enum segment_descriptor_type {
-    SEGMENT_DESCRIPTOR_TYPE_INVALID = 0x0,
-    SEGMENT_DESCRIPTOR_TYPE_CODE    = 0xb,
-    SEGMENT_DESCRIPTOR_TYPE_DATA    = 0x3,
-    SEGMENT_DESCRIPTOR_TYPE_TSS     = 0x9
+enum segdesc_type {
+    SEGDESC_TYPE_INVALID = 0x0,
+    SEGDESC_TYPE_CODE    = 0xb,
+    SEGDESC_TYPE_DATA    = 0x3,
 };
 
-/*
- * Segment protection levels
+/*!
+ * \brief Segment protection levels
  */
-enum segment_descriptor_ring {
-    SEGMENT_DESCRIPTOR_RING_0 = 0,
-    SEGMENT_DESCRIPTOR_RING_1 = 1,
-    SEGMENT_DESCRIPTOR_RING_2 = 2,
-    SEGMENT_DESCRIPTOR_RING_3 = 3,
+enum segdesc_ring {
+    SEGDESC_RING_0 = 0,
+    SEGDESC_RING_1 = 1,
+    SEGDESC_RING_2 = 2,
+    SEGDESC_RING_3 = 3,
 };
 
-/*
- * Segment descriptor modes (x86_64 only)
+/*!
+ * \brief Segment descriptor modes (x86_64 only)
  */
-enum segment_descriptor_mode {
-    SEGMENT_DESCRIPTOR_MODE_LONG = 0,
-    SEGMENT_DESCRIPTOR_MODE_COMP = 1
+enum segdesc_mode {
+    SEGDESC_MODE_LONG = 0,
+    SEGDESC_MODE_COMP = 1
 };
 
-/*
- * Segment descriptor related MSRs (x86_64 only)
+/*!
+ * \brief Segment descriptor related MSRs (x86_64 only)
  */
-enum segment_descriptor_msr {
-    SEGMENT_DESCRIPTOR_MSR_NONE = 0,
-    SEGMENT_DESCRIPTOR_MSR_FS   = 1,
-    SEGMENT_DESCRIPTOR_MSR_GS   = 2
+enum segdesc_msr {
+    SEGDESC_MSR_NONE = 0,
+    SEGDESC_MSR_FS   = 1,
+    SEGDESC_MSR_GS   = 2
 };
 
-/*
- * Segment granularities
+/*!
+ * \brief Segment granularities
  */
-enum segment_granularity {
-    SEGMENT_GRANULARITY_BYTES = 0,
-    SEGMENT_GRANULARITY_PAGES = 1
+enum segdesc_granularity {
+    SEGDESC_GRANULARITY_BYTES = 0,
+    SEGDESC_GRANULARITY_PAGES = 1
 };
 
-/*
- * Segment descriptor
+/*!
+ * \brief Segment descriptor
  */
-struct segment_descriptor {
+struct segdesc {
     word_t limit_low  : 16;
     word_t base_low   : 24 __attribute__((packed));
     word_t type       : 4;
@@ -85,52 +89,20 @@ struct segment_descriptor {
     word_t base_high  : 8;
 } __attribute__((packed));
 
-/*
- * Initializes the segment descriptor structure
- * @base:   Segment base linear address
- * @limit:  Segment limit/size
- * @dpl:    Segment protection level (ring 0-3)
- * @type:   Segment type
- * @mode:   Segment mode
- * @msr:    MSR register on x86_64 for FS an GS
- * @desc:   Pointer to the segment descriptor structure
+/*!
+ * \brief Initializes the segment descriptor structure
+ * 
+ * \param base Segment base linear address
+ * \param limit Segment limit/size
+ * \param dpl Segment protection level (ring 0-3)
+ * \param type Segment type
+ * \param mode Segment mode
+ * \param msr MSR register on x86_64 for FS an GS
+ * \param desc Pointer to the segment descriptor structure
  */
-static inline void segment_descriptor_init(word_t base, word_t limit,
-    enum segment_descriptor_ring dpl, enum segment_descriptor_type type, 
-    enum segment_descriptor_mode mode, enum segment_descriptor_msr msr, 
-    struct segment_descriptor *desc) {
-    assert(desc != nullptr);
-    if (desc == nullptr)
-        return;
-
-    if (msr != SEGMENT_DESCRIPTOR_MSR_NONE && (base >> 32)) {
-        uint32_t reg = (msr == SEGMENT_DESCRIPTOR_MSR_FS) 
-            ? IA32_FS_BASE : IA32_GS_BASE;
-        write_msr(base, reg);  
-    }
-
-    if (limit > (1 << 20)) {
-        desc->limit_low = (limit >> 12) & 0xffff;
-        desc->limit_high = (limit >> 28) & 0xf;
-        desc->g = SEGMENT_GRANULARITY_PAGES;
-    } else {
-        desc->limit_low = limit & 0xffff;
-        desc->limit_high = limit >> 16;
-        desc->g = SEGMENT_GRANULARITY_BYTES;
-    }
-
-    desc->base_low = base & 0xffffff;
-    desc->base_high = (base >> 24) & 0xff;
-    desc->type = type;
-    desc->avl = mode;
-    desc->dpl = dpl;
-
-    desc->d = (type == SEGMENT_DESCRIPTOR_TYPE_CODE)
-        ? mode : SEGMENT_DESCRIPTOR_MODE_COMP;
-
-    desc->p = 1;
-    desc->s = 1;
-}
+void segdesc_init(word_t base, word_t limit, enum segdesc_ring dpl, 
+     enum segdesc_type type, enum segdesc_mode mode, enum segdesc_msr msr, 
+     struct segdesc *desc);
 
 #endif /* __ARCH_X86_KRNL4_MMU__SEGDESC_H_ */
 

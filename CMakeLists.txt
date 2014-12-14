@@ -18,6 +18,16 @@
 
 cmake_minimum_required (VERSION 2.8)
 
+set (CODENAME "krnl4")
+set (COPYRIGHT_YEARS "2014")
+set (VERSION_MAJOR 0)
+set (VERSION_MINOR 0)
+set (VERSION_PATCH 1)
+set (VERSION_TYPE SNAPSHOT)
+set (VERSION_STRING
+    "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}-${VERSION_TYPE}"
+)
+
 # Don't start build from the root directory
 if (CMAKE_BINARY_DIR STREQUAL ${CMAKE_SOURCE_DIR})
   message(FATAL_ERROR "type: git clean -df && mkdir build && cd build && cmake .. && make")
@@ -71,6 +81,7 @@ endif ()
 # Generate config header
 configure_file (${INCLUDE_DIR}/config.h.cmake ${INCLUDE_ASM_DIR}/config.h)
 
+add_subdirectory (doc)
 add_subdirectory (lib)
 add_subdirectory (init)
 add_subdirectory (kernel)

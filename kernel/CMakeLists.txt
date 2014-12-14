@@ -19,20 +19,6 @@
 project (krnl4 C)
 cmake_minimum_required (VERSION 2.8)
 
-set (APPLICATION_NAME "krnl4")
-set (APPLICATION_CODENAME "${PROJECT_NAME}")
-set (APPLICATION_COPYRIGHT_YEARS "2014")
-set (APPLICATION_VERSION_MAJOR 0)
-set (APPLICATION_VERSION_MINOR 0)
-set (APPLICATION_VERSION_PATCH 1)
-set (APPLICATION_VERSION_TYPE SNAPSHOT)
-set (APPLICATION_VERSION_STRING
-  "${APPLICATION_VERSION_MAJOR}.
-   ${APPLICATION_VERSION_MINOR}.
-   ${APPLICATION_VERSION_PATCH}-
-   ${APPLICATION_VERSION_TYPE}"
-)
-
 set (project_BIN ${PROJECT_NAME})
 
 # Enable assembler
@@ -42,19 +28,34 @@ if (NOT CMAKE_ASM_COMPILER_WORKS)
 endif ()
 
 # multiboot.S needs to be the first during the linkage
-set (project_SOURCES
+set (multiboot_SOURCES
   ${ARCH_ASM_DIR}/asm/boot/multiboot.S
 )
 
+# Architecture dependant sources
+if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64" OR 
+    ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86")
+    set (arch_SOURCES
+      ${ARCH_ASM_DIR}/asm/krnl4/cpu/cpu.c
+      ${ARCH_ASM_DIR}/asm/krnl4/mmu/gdt.c
+      ${ARCH_ASM_DIR}/asm/krnl4/mmu/segdesc.c
+      ${ARCH_ASM_DIR}/asm/krnl4/mmu/tssdesc.c
+    )
+else ()
+  message (FATAL_ERROR "Unsupported architecture")
+endif ()
+
 # Miscelaneous source files
 set (misc_SOURCES
-    misc/panic.c
+  misc/panic.c
 )
 
 # Add source files
-set (project_SOURCES ${project_SOURCES}
-    krnl4.c
-    ${misc_SOURCES}
+set (project_SOURCES 
+  ${multiboot_SOURCES}    # Needs to be first for linker
+  krnl4.c
+  ${arch_SOURCES}
+  ${misc_SOURCES}
 )
 
 # Append root include and build/include directories

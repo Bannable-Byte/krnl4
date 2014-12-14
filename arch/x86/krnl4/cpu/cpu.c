@@ -16,20 +16,27 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*!
- * \file panic.h
- * \brief Kernel panic support
- */
+#include <assert.h>
+#include <asm/krnl4/mmu/gdt.h>
+#include <krnl4/types.h>
 
-#ifndef __INCLUDE_KRNL4__PANIC_H_
-#define __INCLUDE_KRNL4__PANIC_H_ 
+#include "cpu.h"
 
-/*!
- * \brief Causes kernel to panic and to dump registers and stacktrace to the console.
- * 
- * \param msg Message to be included in the dump.
- */
-void panic(char *msg);
+int cpu_init(struct cpu *cpu) 
+{
+    assert(cpu != nullptr);
+    if (cpu == nullptr)
+        return ECPU;
 
-#endif /*__INCLUDE_KRNL4__PANIC_H_ */
+    int err = ENO;
+    if ((err = gdt_init(&cpu->gdt)) != ENO)
+        return err;
+
+    return ENO;
+}
+
+int cpu_boostrap(struct cpu *cpu) 
+{
+    return ECPU;
+}
 

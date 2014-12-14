@@ -16,14 +16,19 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __ARCH_X86_KRNL4_MMU__IDT_H_
-#define __ARCH_X86_KRNL4_MMU__IDT_H_
+/*!
+ * \file idtr.h
+ * \brief Interrupt descriptor table register for the Intel x86 architecture
+ */
+
+#ifndef __ARCH_X86_KRNL4_MMU__IDTR_H_
+#define __ARCH_X86_KRNL4_MMU__IDTR_H_
 
 #include <assert.h>
 #include <krnl4/types.h>
 
-/*
- * Interrupts descriptor table register
+/*!
+ * \brief Interrupts descriptor table register
  */
 struct idtr {
     uint16_t size;
@@ -31,11 +36,12 @@ struct idtr {
 } __attribute__((packed));
 
 
-/*
- * Initializes the interrupts descriptor table register structure
- * @addr:   Linear addres of the table
- * @size:   The size of the table subtracted by 1
- * @idtr:   Pointer to the interrupts descriptor table register structure
+/*!
+ * \brief Initializes an interrupts descriptor table register structure
+ *
+ * \param addr Linear addres of the table
+ * \param size The size of the table subtracted by 1
+ * \param idtr Pointer to the interrupts descriptor table register structure
  */
 static inline void idtr_init(word_t addr, uint16_t size, struct idtr *idtr) {
     assert(idtr != nullptr);
@@ -46,9 +52,10 @@ static inline void idtr_init(word_t addr, uint16_t size, struct idtr *idtr) {
     idtr->addr = addr;
 }
 
-/*
- * Loads the interrupts descriptor table register structure into the register
- * @idtr: Pointer to the interupts descriptor table register structure
+/*!
+ * \brief Loads the interrupts descriptor table register structure into the register
+ * 
+ * \param idtr Pointer to the interupts descriptor table register structure
  */
 static inline void idtr_load(struct idtr *idtr) {
     assert(idtr != nullptr);
@@ -58,9 +65,10 @@ static inline void idtr_load(struct idtr *idtr) {
     __asm__ __volatile__("lidt %0\n" : /* no output */ : "m"(*idtr));
 }
 
-/*
- * Stores the value from the interrupts descriptor table register to the structure
- * @idtr:   Pointer to the interrupts descriptor table register structure
+/*!
+ * \brief Stores the value from the interrupts descriptor table register to the structure
+ * 
+ * \param idtr Pointer to the interrupts descriptor table register structure
  */
 static inline void idtr_store(struct idtr *idtr) {
     assert(idtr != nullptr);
@@ -70,5 +78,5 @@ static inline void idtr_store(struct idtr *idtr) {
     __asm__ __volatile__("sidt %0\n" : "=m"(*idtr) : /* no input */);
 }
 
-#endif /* __ARCH_X86_KRNL4_MMU__IDT_H_ */
+#endif /* __ARCH_X86_KRNL4_MMU__IDTR_H_ */
 

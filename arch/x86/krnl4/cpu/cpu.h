@@ -17,38 +17,49 @@
  */
 
 /*! 
- * \file selreg.h
- * \brief Selector register for the Intel x86 architecture
- */
+ * \file cpu.h
+ * \brief Intel x86 architecture cpu structure
+ */ 
 
-#ifndef __ARCH_X86_KRNL4_MMU__SELREG_H_
-#define __ARCH_X86_KRNL4_MMU__SELREG_H_
+#ifndef __ARCH_X86_KRNL4_CPU__CPU_H_
+#define __ARCH_X86_KRNL4_CPU__CPU_H_
 
 #include <assert.h>
+#include <asm/krnl4/mmu/gdt.h>
+#include <asm/krnl4/mmu/gdtr.h>
+#include <asm/krnl4/mmu/idtr.h>
+#include <asm/krnl4/mmu/segdesc.h>
+#include <asm/krnl4/mmu/tssdesc.h>
 #include <krnl4/types.h>
 
-/*!
- * \brief Selector register
+/*! 
+ * \brief CPU initialization error 
  */
-struct selector_register {
-    uint16_t selector;
-} __attribute__((packed));
+#define ECPU    -1
 
+/*! 
+ * \brief Architecture dependant cpu structure
+ */
+struct cpu {
+    struct gdt gdt;
+    struct gdtr gdtr;
+};
 
-/*!
- * \brief Initializes the selector register structure
+/*! 
+ * \brief Initializes cpu structure
  * 
- * \param selector Selector value
- * \param sel Pointer to the selector register structure
+ * \param cpu The cpu structure
+ * \return The error code 
  */
-static inline void selector_register_init(uint16_t selector, 
-    struct selector_register *sel) {
-    assert(sel != nullptr);
-    if (sel == nullptr)
-        return;
+int cpu_init(struct cpu *cpu); 
 
-    sel->selector = selector;
-}
+/*! 
+ * \brief Bootstraps cpu
+ *
+ * \param cpu The cpu structure
+ * \return The error code
+ */
+int cpu_bootstrap(struct cpu *cpu);
 
-#endif /* __ARCH_X86_KRNL4_MMU__SELREG_H_ */
+#endif /* __ARCH_X86_KRNL4_CPU__CPU_H */
 

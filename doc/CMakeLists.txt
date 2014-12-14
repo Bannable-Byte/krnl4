@@ -28,6 +28,7 @@ if (BUILD_DOCUMENTATION)
         message(FATAL_ERROR "Doxygen is needed to build the documentation.")
     endif()
 
+    set (doxy_main_page ${CMAKE_CURRENT_SOURCE_DIR}/index.md)
     set (doxyfile_in_kernel ${CMAKE_CURRENT_SOURCE_DIR}/../kernel/Doxyfile.in)
     set (doxyfile_kernel ${CMAKE_CURRENT_BINARY_DIR}/../kernel/Doxyfile)
 

@@ -16,24 +16,30 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*!
+ * \file tr.h
+ * \brief Task register structure
+ */
+
 #ifndef __ARCH_X86_KRNL4_MMU__TR_H_
 #define __ARCH_X86_KRNL4_MMU__TR_H_
 
 #include <assert.h>
 #include <krnl4/types.h>
 
-/*
- * Task register structure
+/*!
+ * \brief Task register structure
  */
 struct tr {
     uint16_t selector;
 } __attribute__((packed));
 
 
-/*
- * Initializes the task register structure
- * @selector:   Task register selector
- * @tr:         Pointer to the task register structure
+/*!
+ * \brief Initializes the task register structure
+ * 
+ * \param selector Task register selector
+ * \param tr Pointer to the task register structure
  */
 static inline void tr_init(uint16_t selector, struct tr *tr) {
     assert(tr != nullptr);
@@ -43,9 +49,10 @@ static inline void tr_init(uint16_t selector, struct tr *tr) {
     tr->selector = selector;
 }
 
-/*
- * Loads the task register structure value into the register
- * @tr: Pointer to the task register structure
+/*!
+ * \brief Loads the task register structure value into the register
+ * 
+ * \param tr Pointer to the task register structure
  */
 static inline void tr_load(struct tr *tr) {
     assert(tr != nullptr);
@@ -55,9 +62,10 @@ static inline void tr_load(struct tr *tr) {
     __asm__ __volatile__("ltr %0\n" : /* no output */ : "m"(*tr));
 }
 
-/*
- * Stores the task register value to the structure
- * @tr: Pointer to the task register structure
+/*!
+ * \brief Stores the task register value to the structure
+ * 
+ * \param tr Pointer to the task register structure
  */
 static inline void tr_store(struct tr *tr) {
     assert(tr != nullptr);

@@ -16,24 +16,30 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*!
+ * \file ldtr.h
+ * \brief Local descriptor table register for the Intel x86 architecture
+ */
+
 #ifndef __ARCH_X86_KRNL4_MMU__LDTR_H_
 #define __ARCH_X86_KRNL4_MMU__LDTR_H_
 
 #include <assert.h>
 #include <krnl4/types.h>
 
-/*
- * Local descriptor table register
+/*!
+ * \brief Local descriptor table register
  */
 struct ldtr {
     uint16_t selector;
 } __attribute__((packed));
 
 
-/*
- * Initializes a local descriptor table register structure
- * @selector:   Local descriptor table selector
- * @ldtr:       Pointer to the local descriptor table register structure
+/*!
+ * \brief Initializes a local descriptor table register structure
+ * 
+ * \param selector Local descriptor table selector
+ * \param ldtr Pointer to the local descriptor table register structure
  */
 static inline void ldtr_init(uint16_t selector, struct ldtr *ldtr) {
     assert(ldtr != nullptr);
@@ -43,9 +49,9 @@ static inline void ldtr_init(uint16_t selector, struct ldtr *ldtr) {
     ldtr->selector = selector;
 }
 
-/*
- * Loads the local descriptor table register value from the structure
- * @ldtr:   Pointer to the local descriptor table register structure
+/*!
+ * \brief Loads the local descriptor table register value from the structure
+ * \param ldtr Pointer to the local descriptor table register structure
  */
 static inline void ldtr_load(struct ldtr *ldtr) {
     assert(ldtr != nullptr);
@@ -55,9 +61,9 @@ static inline void ldtr_load(struct ldtr *ldtr) {
     __asm__ __volatile__("lldt %0\n" : /* no output */ : "m"(*ldtr));
 }
 
-/*
- * Stores the value from the local descriptor table register to the structure
- * @ldtr:   Pointer to the local descriptor table register structure
+/*!
+ * \brief Stores the value from the local descriptor table register to the structure
+ * \param ldtr Pointer to the local descriptor table register structure
  */
 static inline void ldtr_store(struct ldtr *ldtr) {
     assert(ldtr != nullptr);

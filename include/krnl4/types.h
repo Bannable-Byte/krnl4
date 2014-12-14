@@ -16,24 +16,44 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*!
+ * \file include/krnl4/types.h
+ * \brief Generic kernel typedefs
+ */
+
 #ifndef __INCLUDE_KRNL4__TYPES_H_
 #define __INCLUDE_KRNL4__TYPES_H_
 
 #include <asm/krnl4/types.h>
 
-/* Define bool type */
+/*!
+ * \brief Defines bool type 
+ */
 typedef _Bool bool;
 
+/*!
+ * \brief True boolean value
+ */
 #define true 1
+
+/*!
+ * \brief False boolean value
+ */
 #define false 0
 
-/* Signal that all the definitions are present */
+/*!
+ * \brief Signals that all the definitions are present 
+ */
 #define __bool_true_false_are_defined 1
 
-/* Define nullptr */
+/*! 
+ * \brief Defines nullptr 
+ */
 #define nullptr ((addr_t)0)
 
-/* Signal that all the definitions are present */
+/*! 
+ * \brief Signals that all the definitions are present 
+ */
 #define __nullptr_is_defined 1
 
 #endif /* __INCLUDE_KRNL4__TYPES_H_ */

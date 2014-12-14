@@ -22,7 +22,8 @@
 
 #include "cpu.h"
 
-int cpu_init(struct cpu *cpu) {
+int cpu_init(struct cpu *cpu) 
+{
     assert(cpu != nullptr);
     if (cpu == nullptr)
         return ECPU;
@@ -34,7 +35,8 @@ int cpu_init(struct cpu *cpu) {
     return ENO;
 }
 
-int cpu_boostrap(struct cpu *cpu) {
+int cpu_boostrap(struct cpu *cpu) 
+{
     return ECPU;
 }
 

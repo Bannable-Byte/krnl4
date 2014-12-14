@@ -16,14 +16,19 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*!
+ * \file gdtr.h
+ * \brief Global descriptor table register for the Intel x86 architecture
+ */
+
 #ifndef __ARCH_X86_KRNL4_MMU__GDTR_H_
 #define __ARCH_X86_KRNL4_MMU__GDTR_H_
 
 #include <assert.h>
 #include <krnl4/types.h>
 
-/*
- * Global descriptor table register
+/*!
+ * \brief Global descriptor table register
  */
 struct gdtr {
     uint16_t size;
@@ -31,11 +36,12 @@ struct gdtr {
 } __attribute__((packed));
 
 
-/*
- * Initializes the global descriptor table register structure
- * @addr:   Linear address of the table
- * @size:   Size of the table subtracted by 1
- * @gdtr:   Pointer to a gdtr structure to be initialized
+/*!
+ * \brief Initializes the global descriptor table register structure
+ *
+ * \param addr Linear address of the table
+ * \param size Size of the table subtracted by 1
+ * \param gdtr Pointer to a gdtr structure to be initialized
  */
 static inline void gdtr_init(word_t addr, uint16_t size, struct gdtr *gdtr) {
     assert(gdtr != nullptr);
@@ -46,9 +52,10 @@ static inline void gdtr_init(word_t addr, uint16_t size, struct gdtr *gdtr) {
     gdtr->addr = addr;
 }
 
-/*
- * Loads the global descriptor table from the structure into the register
- * @gdtr:   Pointer to the global descriptor table register structure
+/*!
+ * \brief Loads the global descriptor table from the structure into the register
+ *
+ * \param gdtr Pointer to the global descriptor table register structure
  */
 static inline void gdtr_load(const struct gdtr *gdtr) {
     assert(gdtr != nullptr);
@@ -58,9 +65,10 @@ static inline void gdtr_load(const struct gdtr *gdtr) {
     __asm__ __volatile__("lgdt %0\n" : /* no output */ : "m"(*gdtr)); 
 }
 
-/*
- * Stores the global descriptor table register value to the structure
- * @gdtr:   Pointer to the global descriptor table register structure
+/*!
+ * \brief Stores the global descriptor table register value to the structure
+ *
+ * \param gdtr Pointer to the global descriptor table register structure
  */
 static inline void gdtr_store(struct gdtr *gdtr) {
     assert(gdtr != nullptr);

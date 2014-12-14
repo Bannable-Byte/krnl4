@@ -18,7 +18,7 @@
 
 /*!
  * \file include/krnl4/sync/atomic32.h
- * \brief Generic kernel support for 32 bits atomic
+ * \brief Generic kernel support for 32 bit atomic integers
  */
 
 #ifndef __INCLUDE_KRNL4_SYNC__ATOMIC32_H_

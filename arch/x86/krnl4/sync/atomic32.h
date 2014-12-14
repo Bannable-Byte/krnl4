@@ -18,7 +18,7 @@
 
 /*! 
  * \file arch/x86/krnl4/sync/atomic32.h
- * \brief Intel x86 architecture implementation of 32 bits atomic
+ * \brief Intel x86 architecture implementation of 32 bit atomic integers
  */ 
 
 #ifndef __ARCH_X86_KRNL4_SYNC__ATOMIC32_H_
@@ -28,21 +28,21 @@
 #include <krnl4/types.h>
 
 /*!
- * \brief Atomic structure for 32 bit values
+ * \brief Atomic 32 bit integer
  */
 typedef struct {
     int v;
 } atomic32_t;
 
 /*!
- * \brief Use for static initialization of atomic values
+ * \brief Use for static initialization of atomic integers
  */
 #define ATOMIC32_INIT(x) { (x) }
 
 /*!
- * \brief Reads the value atomically 
+ * \brief Reads the integer value atomically 
  *
- * \param a Pointer to atomic
+ * \param a Pointer to atomic integer
  * \return Value
  */
 static inline int atomic32_read(const atomic32_t *a) {
@@ -51,10 +51,10 @@ static inline int atomic32_read(const atomic32_t *a) {
 }
 
 /*!
- * \brief Sets the value atomically
+ * \brief Sets the integer value atomically
  *
  * \param v Value
- * \param a Pointer to atomic
+ * \param a Pointer to atomic integer
  */
 static inline void atomic32_set(int v, atomic32_t *a) {
     a->v = v;
@@ -64,7 +64,7 @@ static inline void atomic32_set(int v, atomic32_t *a) {
  * \brief Adds the value v atomically
  *
  * \param v Value
- * \param a Pointer to atomic
+ * \param a Pointer to atomic integer
  */
 static inline void atomic32_add(int v, atomic32_t *a) {
     __asm__ volatile("lock; addl %1, %0" : "+m"(a->v) : "ir"(v));
@@ -74,35 +74,35 @@ static inline void atomic32_add(int v, atomic32_t *a) {
  * \brief Substracts the value v atomically
  *
  * \param v Value
- * \param a Pointer to atomic
+ * \param a Pointer to atomic integer
  */
 static inline void atomic32_sub(int v, atomic32_t *a) {
     __asm__ volatile("lock; subl %1, %0" : "+m"(a->v) : "ir"(v));
 }
 
 /*! 
- * \brief Increments atomically
+ * \brief Increments the integer value atomically
  *
- * \param a Pointer to atomic
+ * \param a Pointer to atomic integer
  */
 static inline void atomic32_inc(atomic32_t *a) {
     __asm__ volatile("lock; incl %0" : "+m"(a->v));
 }
 
 /*! 
- * \brief Decrements atomically
+ * \brief Decrements the integer value atomically
  *
- * \param a Pointer to atomic
+ * \param a Pointer to atomic integer
  */
 static inline void atomic32_dec(atomic32_t *a) {
     __asm__ volatile("lock; decl %0" : "+m"(a->v));
 }
 
 /*!
- * \brief Exchange the values atomically
+ * \brief Exchanges integer values values atomically
  *
  * \param n New value
- * \param a Pointer to atomic
+ * \param a Pointer to atomic integer
  * \return Old value
  */
 static inline int atomic32_xchg(int n, atomic32_t *a) {
@@ -113,11 +113,11 @@ static inline int atomic32_xchg(int n, atomic32_t *a) {
 }
 
 /*!
- * \brief Compare and exchange the values atomically
+ * \brief Compares and exchanges integer values atomically
  *
  * \param o Old value
  * \param n New value
- * \param a Pointer to atomic
+ * \param a Pointer to atomic integer
  * \return Old value
  */
 static inline int atomic32_cmpxchg(int o, int n, atomic32_t *a) {

@@ -25,25 +25,31 @@
 #define __LIB__ASSERT_H_
 
 #include <config.h>
-
-#if defined(__DEBUG__)
-
 #include <generic/macros.h>
 #include <krnl4/types.h>
 #include <krnl4/panic.h>
+
+/*!
+ * \brief Panics if x isn't true.
+ *
+ * \param x Expression to assert.
+ */
+#define assert_panic(x) \
+    while(!(x)) { panic(STRINGIFY(x)); }
+
+#if defined(__DEBUG__)
 
 /*!
  * \brief Panics in DEBUG builds if x isn't true.
  *
  * \param x Expression to assert.
  */
-#define assert(x) \
-    while(!(x)) { panic(STRINGIFY(x)); }
+#define assert(x) assert_panic(x)
 
 #else
 
 /*!
- * \brief Doesn't exist in RELASE builds.
+ * \brief Does nothing in RELEASE builds.
  *
  * \param x Expression to assert.
  */

@@ -27,10 +27,16 @@
 #include <assert.h>
 #include <krnl4/types.h>
 
+/*!
+ * \brief Atomic structure for 32 bit values
+ */
 typedef struct {
     int v;
 } atomic32_t;
 
+/*!
+ * \brief Use for static initialization of atomic values
+ */
 #define ATOMIC32_INIT(x) { (x) }
 
 /*!

@@ -17,7 +17,7 @@
  */
 
 /*! 
- * \file cpu.h
+ * \file arch/x86/krnl4/cpu/cpu.h
  * \brief Intel x86 architecture cpu structure
  */ 
 

@@ -17,7 +17,7 @@
  */
 
 /*!
- * \file cpu.h
+ * \file include/krnl4/cpu/cpu.h
  * \brief Generic kernel cpu support
  */
 

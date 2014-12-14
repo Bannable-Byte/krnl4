@@ -17,7 +17,7 @@
  */
 
 /*!
- * \file atomic32.h
+ * \file include/krnl4/sync/atomic32.h
  * \brief Generic kernel support for 32 bits atomic
  */
 

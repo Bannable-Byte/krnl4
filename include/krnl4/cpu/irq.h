@@ -17,7 +17,7 @@
  */
 
 /*!
- * \file irq.h
+ * \file include/krnl4/cpu/irq.h
  * \brief Generic kernel irq support
  */
 

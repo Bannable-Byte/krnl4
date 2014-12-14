@@ -17,7 +17,7 @@
  */
 
 /*! 
- * \file irq.h
+ * \file arch/x86/krnl4/cpu/irq.h
  * \brief IRQ routines for the Intel x86 architecture
  */ 
 

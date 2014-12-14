@@ -17,7 +17,7 @@
  */
 
 /*! 
- * \file atomic32.h
+ * \file arch/x86/krnl4/sync/atomic32.h
  * \brief Intel x86 architecture implementation of 32 bits atomic
  */ 
 

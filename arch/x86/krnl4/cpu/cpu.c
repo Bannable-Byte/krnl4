@@ -35,7 +35,7 @@ int cpu_init(struct cpu *cpu)
     return ENO;
 }
 
-int cpu_boostrap(struct cpu *cpu) 
+int cpu_bootstrap(struct cpu *cpu) 
 {
     return ECPU;
 }

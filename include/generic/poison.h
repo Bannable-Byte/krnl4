@@ -16,12 +16,19 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*!
+ * \file poison.h
+ * \brief Pointer poison values
+ */
+
 #ifndef __INCLUDE_GENERIC__POISON_H_
 #define __INCLUDE_GENERIC__POISON_H_
 
 #include <krnl4/types.h>
 
-/* List pointer poison value */
+/*!
+ * \brief List pointer poison value 
+ */
 #define LIST_POISON_PTR (addr_t)0xdead000000000000UL
 
 #endif /* __INCLUDE_GENERIC__POISON_H_ */

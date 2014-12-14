@@ -16,12 +16,18 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*!
+ * \file panic.h
+ * \brief Kernel panic support
+ */
+
 #ifndef __INCLUDE_KRNL4__PANIC_H_
 #define __INCLUDE_KRNL4__PANIC_H_ 
 
-/*
- * Causes kernel to panic and to dump registers and stacktrace to the console.
- * @msg:    Message to be included in the dump.
+/*!
+ * \brief Causes kernel to panic and to dump registers and stacktrace to the console.
+ * 
+ * \param msg Message to be included in the dump.
  */
 void panic(char *msg);
 

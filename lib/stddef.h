@@ -16,21 +16,28 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*!
+ * \file stddef.h
+ * \brief Standard definitions for the kernel library
+ */
+
 #ifndef __LIB__STDDEF_H_
 #define __LIB__STDDEF_H_
 
-/*
- * Evaluates the offset in bytes of a member within a structure 
- * @structure:  Structure name
- * @member:     Member name within the structure
+/*!
+ * \brief Evaluates the offset in bytes of a member within a structure 
+ *
+ * \param stucture Structure name
+ * \param member Member name within the structure
  */
 #define offsetof(stucture, member) __builtin_offsetof(structure, member)
 
-/*
- * Casts a member of a structure out to the containing structure
- * @ptr:    the pointer to the member
- * @type:   the type of the container struct this is embedded in
- * @member: the name of the member within the struct
+/*!
+ * \brief Casts a member of a structure out to the containing structure
+ *
+ * \param ptr Pointer to the member
+ * \param type The type of the container struct this is embedded in
+ * \param member The name of the member within the struct
  */
 #define container_of(ptr, type, member) \
     ({ \

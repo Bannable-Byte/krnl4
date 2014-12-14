@@ -16,23 +16,34 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*!
+ * \file msr.h
+ * \brief Model specific register for the Intel x86 architecture
+ */
+
 #ifndef __ARCH_X86_KRNL4_CPU__MSR_H_
 #define __ARCH_X86_KRNL4_CPU__MSR_H_
 
 #include <krnl4/types.h>
 
-/* Map of base address of FS (r/w) */
+/*!
+ * \brief Map of base address of FS (r/w) 
+ */
 #define IA32_FS_BASE    0xc0000100
 
-/* Map of base address of GS (r/w) */
+/*!
+ * \brief Map of base address of GS (r/w) 
+ */
 #define IA32_GS_BASE    0xc0000101
 
 
-/*
- * Reads the value of the specified model specific register 
- * @msr:    Model specific register address
+/*!
+ * \brief Reads the value of the specified model specific register 
+ *
+ * \param msr Model specific register address
+ * \return 64bit value
  */
-static inline uint64_t read_msr(uint32_t msr) {
+inline uint64_t read_msr(uint32_t msr) {
     uint32_t low, high;
     __asm__ __volatile__(
             "rdmsr\n"
@@ -44,12 +55,13 @@ static inline uint64_t read_msr(uint32_t msr) {
     return (((uint64_t)high) << 32) | (uint64_t)low;
 }
 
-/*
- * Writes the value to the specified model specific register
- * @value:  64bit value
- * @msr:    Model specific register address
+/*!
+ * \brief Writes the value to the specified model specific register
+ *
+ * \param msr Model specific register address
+ * \param value 64bit value
  */
-static inline void write_msr(uint64_t value, uint32_t msr) {
+inline void write_msr(uint32_t msr, uint64_t value) {
     __asm__ __volatile__(
             "wrmsr\n"
             : /* no output */ 

@@ -16,24 +16,30 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*! 
+ * \file selreg.h
+ * \brief Selector register for the Intel x86 architecture
+ */
+
 #ifndef __ARCH_X86_KRNL4_MMU__SELREG_H_
 #define __ARCH_X86_KRNL4_MMU__SELREG_H_
 
 #include <assert.h>
 #include <krnl4/types.h>
 
-/*
- * Selector register
+/*!
+ * \brief Selector register
  */
 struct selector_register {
     uint16_t selector;
 } __attribute__((packed));
 
 
-/*
- * Initializes the selector register structure
- * @selector:   Selector value
- * @sel:        Pointer to the selector register structure
+/*!
+ * \brief Initializes the selector register structure
+ * 
+ * \param selector Selector value
+ * \param sel Pointer to the selector register structure
  */
 static inline void selector_register_init(uint16_t selector, 
     struct selector_register *sel) {

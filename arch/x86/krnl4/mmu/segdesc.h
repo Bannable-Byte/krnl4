@@ -16,6 +16,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*!
+ * \file segdesc.h
+ * \brief Segment descriptors for the Intel x86 architectire
+ */ 
+
 #ifndef __ARCH_X86_KRNL4_MMU__SEGDESC_H_
 #define __ARCH_X86_KRNL4_MMU__SEGDESC_H_
 
@@ -23,8 +28,8 @@
 #include <asm/krnl4/cpu/msr.h>
 #include <krnl4/types.h>
 
-/*
- * Segment descriptor types
+/*!
+ * \brief Segment descriptor types
  */
 enum segdesc_type {
     SEGDESC_TYPE_INVALID = 0x0,
@@ -32,8 +37,8 @@ enum segdesc_type {
     SEGDESC_TYPE_DATA    = 0x3,
 };
 
-/*
- * Segment protection levels
+/*!
+ * \brief Segment protection levels
  */
 enum segdesc_ring {
     SEGDESC_RING_0 = 0,
@@ -42,16 +47,16 @@ enum segdesc_ring {
     SEGDESC_RING_3 = 3,
 };
 
-/*
- * Segment descriptor modes (x86_64 only)
+/*!
+ * \brief Segment descriptor modes (x86_64 only)
  */
 enum segdesc_mode {
     SEGDESC_MODE_LONG = 0,
     SEGDESC_MODE_COMP = 1
 };
 
-/*
- * Segment descriptor related MSRs (x86_64 only)
+/*!
+ * \brief Segment descriptor related MSRs (x86_64 only)
  */
 enum segdesc_msr {
     SEGDESC_MSR_NONE = 0,
@@ -59,16 +64,16 @@ enum segdesc_msr {
     SEGDESC_MSR_GS   = 2
 };
 
-/*
- * Segment granularities
+/*!
+ * \brief Segment granularities
  */
 enum segdesc_granularity {
     SEGDESC_GRANULARITY_BYTES = 0,
     SEGDESC_GRANULARITY_PAGES = 1
 };
 
-/*
- * Segment descriptor
+/*!
+ * \brief Segment descriptor
  */
 struct segdesc {
     word_t limit_low  : 16;
@@ -84,15 +89,16 @@ struct segdesc {
     word_t base_high  : 8;
 } __attribute__((packed));
 
-/*
- * Initializes the segment descriptor structure
- * @base:   Segment base linear address
- * @limit:  Segment limit/size
- * @dpl:    Segment protection level (ring 0-3)
- * @type:   Segment type
- * @mode:   Segment mode
- * @msr:    MSR register on x86_64 for FS an GS
- * @desc:   Pointer to the segment descriptor structure
+/*!
+ * \brief Initializes the segment descriptor structure
+ * 
+ * \param base Segment base linear address
+ * \param limit Segment limit/size
+ * \param dpl Segment protection level (ring 0-3)
+ * \param type Segment type
+ * \param mode Segment mode
+ * \param msr MSR register on x86_64 for FS an GS
+ * \param desc Pointer to the segment descriptor structure
  */
 void segdesc_init(word_t base, word_t limit, enum segdesc_ring dpl, 
      enum segdesc_type type, enum segdesc_mode mode, enum segdesc_msr msr, 

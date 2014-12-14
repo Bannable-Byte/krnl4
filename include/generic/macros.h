@@ -16,25 +16,32 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*!
+ * \file macros.h
+ * \brief Generic macros needed in different places
+ */
+
 #ifndef __INCLUDE__GENERIC__MACROS_H_
 #define __INCLUDE__GENERIC__MACROS_H_
 
 #include <stddef.h>
 #include <krnl4/types.h>
 
-/* 
- * Spins the cpu eternaly 
- * @cpu:    CPU index
+/*!
+ * \brief Spins the cpu eternaly 
+ * \param cpu Index of the cpu
  */
 #define spin_forever(cpu) do {} while(true)
 
-/* Converts macro argument to string 
- * @x:  x -> "x"
+/*!
+ * \brief Converts macro argument to string 
+ * \param x x -> "x"
  */
 #define STRINGIFY(x) #x
 
-/* Expands macro argument value to string 
- * @x:  x -> x() -> "result"
+/*!
+ * \brief Expands macro argument value to string 
+ * \param x x -> x() -> "result"
  */
 #define STRINGIFY_EXPAND(x) STRINGIFY(x)
 

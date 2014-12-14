@@ -23,7 +23,8 @@
 
 #include "gdt.h"
 
-int gdt_init(struct gdt *gdt) {
+int gdt_init(struct gdt *gdt) 
+{
     assert(gdt != nullptr);
     if (gdt == nullptr)
         return EGDT;

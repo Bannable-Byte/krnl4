@@ -16,6 +16,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*!
+ * \file assert.h
+ * \brief Defines generic kernel assert macros
+ */
+
 #ifndef __LIB__ASSERT_H_
 #define __LIB__ASSERT_H_
 
@@ -27,15 +32,21 @@
 #include <krnl4/types.h>
 #include <krnl4/panic.h>
 
-/*
- * Panics in DEBUG build if x isn't true.
- * @x:  The expression to test if it's true or not.
+/*!
+ * \brief Panics in DEBUG builds if x isn't true.
+ *
+ * \param x Expression to assert.
  */
 #define assert(x) \
     while(!(x)) { panic(STRINGIFY(x)); }
 
 #else
 
+/*!
+ * \brief Doesn't exist in RELASE builds.
+ *
+ * \param x Expression to assert.
+ */
 #define assert(x)
 
 #endif /* __DEBUG__ */

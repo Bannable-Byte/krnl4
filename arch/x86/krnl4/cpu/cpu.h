@@ -16,6 +16,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*! 
+ * \file cpu.h
+ * \brief Intel x86 architecture cpu structure
+ */ 
+
 #ifndef __ARCH_X86_KRNL4_CPU__CPU_H_
 #define __ARCH_X86_KRNL4_CPU__CPU_H_
 
@@ -27,28 +32,32 @@
 #include <asm/krnl4/mmu/tssdesc.h>
 #include <krnl4/types.h>
 
-/* CPU error */
+/*! 
+ * \brief CPU initialization error 
+ */
 #define ECPU    -1
 
-/*
- * Architecture dependant CPU structure
+/*! 
+ * \brief Architecture dependant cpu structure
  */
 struct cpu {
     struct gdt gdt;
     struct gdtr gdtr;
 };
 
-/*
- * Initializes CPU structure
- * @cpu         CPU structure
- * @returns     Error code 
+/*! 
+ * \brief Initializes cpu structure
+ * 
+ * \param cpu The cpu structure
+ * \return The error code 
  */
 int cpu_init(struct cpu *cpu); 
 
-/*
- * Bootstraps CPU
- * @cpu         CPU structure
- * @returns     Error code
+/*! 
+ * \brief Bootstraps cpu
+ *
+ * \param cpu The cpu structure
+ * \return The error code
  */
 int cpu_bootstrap(struct cpu *cpu);
 

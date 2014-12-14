@@ -16,6 +16,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*!
+ * \file tssdesc.h
+ * \brief Task state segment descriptor for the Intel x86 architecture
+ */
+
 #ifndef __ARCH_X86_KRNL4_MMU__TSSDESC_H_
 #define __ARCH_X86_KRNL4_MMU__TSSDESC_H_
 
@@ -24,15 +29,15 @@
 #include <asm/krnl4/mmu/segdesc.h>
 #include <krnl4/types.h>
 
-/*
- * TSS descriptor types
+/*!
+ * \brief TSS descriptor types
  */
 enum tssdesc_type {
     TSSDESC_TYPE_TSS = 0x9
 };
 
-/*
- * TSS descriptor protection levels
+/*!
+ * \brief TSS descriptor protection levels
  */
 enum tssdesc_ring {
     TSSDESC_RING_0 = 0,
@@ -41,8 +46,8 @@ enum tssdesc_ring {
     TSSDESC_RING_3 = 3,
 };
 
-/*
- * TSS descriptor granularities
+/*!
+ * \brief TSS descriptor granularities
  */
 enum tssdesc_granularity {
     TSSDESC_GRANULARITY_BYTES = 0,
@@ -51,15 +56,15 @@ enum tssdesc_granularity {
 
 #if defined(__ARCH_X86__)
 
-/*
- * TSS descriptor
+/*!
+ * \brief TSS descriptor
  */
 typedef segdesc tssdesc;    
 
 #elif defined(__ARCH_X86_64__)
 
-/*
- * TSS descriptor
+/*!
+ * \brief TSS descriptor
  */
 struct tssdesc {
     word_t limit_low  : 16;
@@ -83,10 +88,12 @@ struct tssdesc {
 #error Unknown architecture
 #endif
 
-/*
- * Initializes the TSS descriptor structure
- * @base    TSS base linear address
- * @limit   TSS limit/size
+/*!
+ * \brief Initializes the TSS descriptor structure
+ * 
+ * \param base TSS base linear address
+ * \param limit TSS limit/size
+ * \param desc TSS desc struct
  */
 void tssdesc_init(word_t base, word_t limit, struct tssdesc *desc);
 

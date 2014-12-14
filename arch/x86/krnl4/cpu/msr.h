@@ -43,7 +43,7 @@
  * \param msr Model specific register address
  * \return 64bit value
  */
-inline uint64_t read_msr(uint32_t msr) {
+static inline uint64_t read_msr(uint32_t msr) {
     uint32_t low, high;
     __asm__ __volatile__(
             "rdmsr\n"
@@ -61,7 +61,7 @@ inline uint64_t read_msr(uint32_t msr) {
  * \param msr Model specific register address
  * \param value 64bit value
  */
-inline void write_msr(uint32_t msr, uint64_t value) {
+static inline void write_msr(uint32_t msr, uint64_t value) {
     __asm__ __volatile__(
             "wrmsr\n"
             : /* no output */ 

@@ -60,7 +60,7 @@ set (INCLUDE_LIB_DIR ${CMAKE_SOURCE_DIR}/lib)
 
 # Create architecture dependant links
 if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64" OR 
-    ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86")
+    ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i686")
   execute_process (COMMAND rm -rf ${CMAKE_BINARY_DIR}/include)
   execute_process (COMMAND mkdir -p ${CMAKE_BINARY_DIR}/include)
   execute_process (COMMAND ln -s ${ARCH_DIR}/x86 ${CMAKE_BINARY_DIR}/include/asm)

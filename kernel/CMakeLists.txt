@@ -34,7 +34,7 @@ set (multiboot_SOURCES
 
 # Architecture dependant sources
 if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64" OR 
-    ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86")
+    ${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i686")
     set (arch_SOURCES
       ${ARCH_ASM_DIR}/asm/krnl4/cpu/cpu.c
       ${ARCH_ASM_DIR}/asm/krnl4/mmu/gdt.c
